@@ -6,3 +6,36 @@ body {
 .container {
 	outline: 1px solid black;
 }
+
+.product-list {
+	display: flex;
+	flex-wrap: wrap;
+	list-style-type: none;
+}
+
+.product-list-item-details {
+	text-decoration: none;
+	outline: 1px solid pink;
+}
+
+.product-list-item {
+	outline: 1px solid green;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex: 1 0 220px;
+	padding: 10px;
+}
+
+.product-list-item h3 {
+
+}
+
+.product-list-item h4 {
+
+}
+
+.product-list-item h5 {
+
+}
