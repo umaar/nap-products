@@ -2,12 +2,9 @@ var config = require('../config/config')
 var request = require('request');
 
 var routes = {
-    init: function(app) {
-
-        // set up landing page
-        app.get('/', function (req, res, next) {
-            
-            request('http://127.0.0.1:3000/api/products', function(error, response, body) {
+    init(app) {
+        app.get('/', (req, res, next) => {
+            request('http://127.0.0.1:3000/api/products', (error, response, body) => {
                 res.render('index', {
                     metadata: {
                         title: 'NAP Tech Test'
@@ -15,7 +12,7 @@ var routes = {
                     title: 'NAP Tech Test',
                     layout: 'layouts/default',
                     template: 'index',
-                    products: body
+                    products: JSON.parse(body)
                 });
             });
         });
@@ -23,8 +20,4 @@ var routes = {
     }
 };
 
-
-
-module.exports = {
-    routes: routes
-};
+module.exports = { routes };

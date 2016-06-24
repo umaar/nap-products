@@ -1,44 +1,35 @@
-// config
-var config = require('../config/config.js');
+const {ROOT} = require('../config/config.js');
 
-var express = require("express");
-var hbs = require('express-hbs');
-var expressParams = require('express-params');
+let express = require("express");
+let hbs = require('express-hbs');
+let expressParams = require('express-params');
 
-var appConfiguration = {
+let appConfiguration = {
 
-    templateConfig: function(app) {
-
+    templateConfig(app) {
         app.engine('hbs', hbs.express3({
-          partialsDir: config.ROOT + '/views/partials',
-          layoutsDir: config.ROOT + '/views/layouts'
+          partialsDir: ROOT + '/views/partials',
+          layoutsDir: ROOT + '/views/layouts'
         }));
         app.set('view engine', 'hbs');
-        app.set('views', config.ROOT + '/views');        
-
-        app.use(express.static(config.ROOT + '/public'));
+        app.set('views', ROOT + '/views');
+        app.use(express.static(ROOT + '/public'));
     },
 
-    enableCORS: function(app) {
-        app.use(function(req, res, next) {
+    enableCORS(app) {
+        app.use((req, res, next) => {
           res.header("Access-Control-Allow-Origin", "*");
-          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+          res.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
           next();
-        }); 
+        });
     },
 
-    init: function() {
+    init() {
         var app = express();
-
         appConfiguration.templateConfig(app);
-
         appConfiguration.enableCORS(app);
-
         return app;
     }
 };
 
-
-module.exports = {
-    appConfiguration: appConfiguration
-};
+module.exports = { appConfiguration };
