@@ -1,11 +1,16 @@
 {{!< default}}
 <div class="container">
 
+{{!-- 
 {{products.offset}}
 {{products.limit}}
 {{products.total}}
+ --}}
 
-<input type="text" class="product-search">
+<header class="main-header">
+	<input type="text" class="product-search" placeholder="...{{placeholderText}}">
+</header>
+
 
 <ul class="product-list">
 	{{#each products.data}}

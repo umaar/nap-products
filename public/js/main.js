@@ -1,7 +1,15 @@
 function start() {
 	console.log('ready');
 
-
+	function addIndividualProductToList(id) {
+		const liveSearchClass = 'product-list-item-live-search';
+		$('.' + liveSearchClass).remove();
+		const template = Handlebars.templates['productItemList.hbs'];
+		$.getJSON('/api/product/' + id, res => {
+			const html = $(template(res)).addClass(liveSearchClass);
+			$('.product-list').prepend(html);
+		});
+	}
 
 	$.getJSON('http://localhost:3000/api/all-product-names', response => {
 		var input = document.querySelector('input.product-search');
@@ -12,8 +20,7 @@ function start() {
 		});
 
 		window.addEventListener("awesomplete-highlight", ({text}) => {
-			const selectedValue = text.value;
-			console.log(selectedValue);
+			addIndividualProductToList(text.value)
 		}, false);
 	})
 }

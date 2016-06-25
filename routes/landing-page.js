@@ -17,6 +17,7 @@ var routes = {
         app.get('/', (req, res, next) => {
             request('http://127.0.0.1:3000/api/products', (error, response, body) => {
                 const products = processProducts(JSON.parse(body));
+                const placeholderText = products.data[0].name;
 
                 res.render('index', {
                     metadata: {
@@ -25,7 +26,8 @@ var routes = {
                     title: 'NAP Tech Test',
                     layout: 'layouts/default',
                     template: 'index',
-                    products
+                    products,
+                    placeholderText
                 });
             });
         });

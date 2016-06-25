@@ -2,6 +2,26 @@ body {
 	padding: 10px;
 }
 
+::-webkit-input-placeholder {
+	font-style: italic;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+	font-style: italic;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+	font-style: italic;
+}
+
+:-ms-input-placeholder {
+	font-style: italic;
+}
+
+.main-header {
+	display: flex;
+	justify-content: flex-end;
+}
 
 .container {
 	outline: 1px solid black;
@@ -26,6 +46,16 @@ body {
 	justify-content: center;
 	flex: 1 0 220px;
 	padding: 10px;
+}
+
+.product-search {
+	display: inline-block;
+	padding: 10px;
+	font-size: 18px;
+}
+
+.product-list-item-live-search {
+	background: lightcyan;
 }
 
 .product-list-item h3 {
