@@ -12,6 +12,11 @@ var configureRoutes = {
         var productApiRoute = require(config.ROOT + '/routes/product');
         productApiRoute.routes.init(app);
 
+        /********* All Product Names API Routes ***********/
+        var productNamesApiRoute = require(config.ROOT + '/routes/product-names');
+        productNamesApiRoute.routes.init(app);
+
+
         /********* Landing Page Routes ***********/
         var landingPageRoute = require(config.ROOT + '/routes/landing-page');
         landingPageRoute.routes.init(app);

@@ -5,20 +5,11 @@
 {{products.limit}}
 {{products.total}}
 
+<input type="text" class="product-search">
 
 <ul class="product-list">
 	{{#each products.data}}
-		<li class="product-list-item">
-			<a href="{{url}}">
-				<img src="{{image.outfit}}" alt="{{name}}">
-			</a>
-
-			<a href="{{url}}" class="product-list-item-details">
-				<h4>{{designer}}</h4>
-				<h3>{{name}}</h3>
-				<h5>{{price}}</h5>
-			</a>
-		</li>
+		{{> productItemList}}
 	{{/each}}
 </ul>
 

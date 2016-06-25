@@ -17,9 +17,9 @@ var routes = {
             }
 
             res.json({
-                offset: offset,
-                limit: limit,
-                total: total,
+                offset,
+                limit,
+                total,
                 data: allProducts.slice(offset, offset+limit).map(function(product) {
                     // Simplify payload - more data available in fixture
                     return {
