@@ -1,4 +1,9 @@
 {{!< default}}
+
+<header class="main-header">
+	<input type="text" class="product-search" placeholder="...{{placeholderText}}">
+</header>
+
 <div class="container">
 
 {{!-- 
@@ -7,10 +12,16 @@
 {{products.total}}
  --}}
 
-<header class="main-header">
-	<input type="text" class="product-search" placeholder="...{{placeholderText}}">
-</header>
-
+<aside>
+	<ul class="product-list-designer-filter">
+		{{#each designersWithIds}}
+			<li>
+				<input type="checkbox" name="{{id}}" id="{{id}}" value="{{name}}">
+				<label for="{{id}}">{{name}}</label>
+			</li>
+		{{/each}}
+	</ul>
+</aside>
 
 <ul class="product-list">
 	{{#each products.data}}
@@ -18,4 +29,4 @@
 	{{/each}}
 </ul>
 
-</div>
+</div><!-- container -->

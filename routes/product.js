@@ -1,5 +1,6 @@
 var config = require('../config/config')
 var _ = require('lodash');
+const slug = require('slug')
 
 // Mock API using fixture so we're not dependent on network connectivity
 var allProducts = require(config.ROOT +'/fixtures/products.json').data;
@@ -30,7 +31,9 @@ var routes = {
                         small: '//cache.net-a-porter.com/images/products/'+productObj.id+'/'+productObj.id+'_in_sl.jpg',
                         large: '//cache.net-a-porter.com/images/products/'+productObj.id+'/'+productObj.id+'_in_pp.jpg'
                     }
+
                 };
+                body['url'] = `/product/${body.id}-${slug(body.name)}`;
             } else {
                 body = {error: 'pid not found'}
             };

@@ -29,16 +29,22 @@ function start() {
 
 	$.getJSON('http://localhost:3000/api/all-product-names', response => {
 		var input = document.querySelector('input.product-search');
-		console.log(response.data[0]);
 		const autocomplete = new Awesomplete(input, {
 			minChars: 1,
-			list: response.data
+			maxItems: 40,
+			list: response.data,
 		});
 
 		window.addEventListener("awesomplete-highlight", ({text}) => {
 			addIndividualProductToList(text.value)
 		}, false);
-	})
+
+		window.addEventListener("awesomplete-select", ({text}) => {
+			addIndividualProductToList(text.value)
+		}, false);
+	});
+
+	
 }
 
 $(start);
