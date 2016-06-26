@@ -1,5 +1,25 @@
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['filterMessage.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "	<p class=\"filter-message\">\n		<strong>"
+    + alias4(((helper = (helper = helpers.resultCount || (depth0 != null ? depth0.resultCount : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"resultCount","hash":{},"data":data}) : helper)))
+    + "</strong> results displayed. Total: <strong>"
+    + alias4(((helper = (helper = helpers.totalProductListCount || (depth0 != null ? depth0.totalProductListCount : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"totalProductListCount","hash":{},"data":data}) : helper)))
+    + "</strong>\n	</p>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.activeFilter : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"useData":true});
+templates['pageHead.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<head>\n	<title>"
+    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.metadata : depth0)) != null ? stack1.title : stack1), depth0))
+    + "</title>\n	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n	<link rel=\"stylesheet\" href=\"/css/reset.css\">\n	<link rel=\"stylesheet\" href=\"/css/awesomplete.css\" />\n	<link rel=\"stylesheet\" href=\"/css/main.css\">\n</head>";
+},"useData":true});
 templates['productItemList.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -26,5 +46,8 @@ templates['productItemList.hbs'] = template({"1":function(container,depth0,helpe
     + "</h3>\n		<h5>"
     + alias4(((helper = (helper = helpers.price || (depth0 != null ? depth0.price : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"price","hash":{},"data":data}) : helper)))
     + "</h5>\n	</a>\n</li>";
+},"useData":true});
+templates['scripts.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<script src=\"/js/jquery-3.0.0.min.js\"></script>\n<script src=\"/js/handlebars.runtime-v4.0.5.js\"></script>\n<script src=\"/js/templates.js\"></script>\n<script src=\"/js/awesomplete.min.js\"></script>\n<script src=\"/js/main.js\"></script>";
 },"useData":true});
 })();

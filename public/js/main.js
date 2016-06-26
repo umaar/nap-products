@@ -15,8 +15,10 @@ function handleDesignerFilter() {
 			}
 		});
 
+		let filteredProducts;
+
 		if (designersToFilter.size) {
-			const filteredProducts = $('.product-list li').filter((index, elm) => {
+			filteredProducts = $('.product-list li').filter((index, elm) => {
 				const currentDesigner = $(elm).find('h4').text();
 				return designersToFilter.has(currentDesigner);
 			});
@@ -24,10 +26,19 @@ function handleDesignerFilter() {
 			$('.product-list li').show();
 
 			$('.product-list li').not(filteredProducts).hide();
-			console.log(filteredProducts.length);
 		} else {
 			$('.product-list li').show();
 		}
+
+		$('.filter-message').remove();
+		const template = Handlebars.templates['filterMessage.hbs'];
+		const html = template({
+			activeFilter: designersToFilter.size > 0,
+			resultCount: filteredProducts.length,
+			totalProductListCount: $('.product-list li').length
+		});
+		console.log(html);
+		$('.product-list').prepend(html);
 
 	}
 

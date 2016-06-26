@@ -134,6 +134,14 @@ aside {
 	background: rgba(222, 210, 210, 0.27);
 }
 
+.filter-message {
+	text-align: center;
+	padding: 10px;
+	margin: 0 auto;
+	height: 50px;
+	width: 100%;
+}
+
 @media screen and (max-width: 750px) {
 	.container {
 		flex-direction: column;
