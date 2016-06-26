@@ -37,9 +37,8 @@ function handleDesignerFilter() {
 			resultCount: filteredProducts.length,
 			totalProductListCount: $('.product-list li').length
 		});
-		console.log(html);
-		$('.product-list').prepend(html);
 
+		$('.product-list').prepend(html);
 	}
 
 	$('.product-list-designer-filter input').change(evt => {
@@ -90,6 +89,10 @@ function start() {
 
 		window.addEventListener("awesomplete-select", ({text}) => {
 			addIndividualProductToList(text.value)
+		}, false);
+
+		window.addEventListener("awesomplete-selectcomplete", ({text}) => {
+			location.href = `/product/` + text.value;
 		}, false);
 	});
 

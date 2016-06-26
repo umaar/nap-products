@@ -33,6 +33,39 @@ var routes = {
                     }
                 });
 
+                const query = req.query;
+
+                const sortingFilters = [
+                    {
+                        url: '?sort=price&order=asc',
+                        isActive: (query.sort === 'price' && query.order === 'asc'),
+                        text: 'Price (Low to High)',
+                        sorter: ({price: rawPriceA}, {price: rawPriceB}) => {
+                            const priceA = parseInt(rawPriceA.slice(1));
+                            const priceB = parseInt(rawPriceB.slice(1));
+                            if (priceA < priceB) return -1;
+                            if (priceA > priceB) return 1;
+                            return 0;
+                        }
+                    }, {
+                        url: '?sort=price&order=desc',
+                        isActive: (query.sort === 'price' && query.order === 'desc'),
+                        text: 'Price (High to Low)',
+                        sorter: ({price: rawPriceA}, {price: rawPriceB}) => {
+                            const priceA = parseInt(rawPriceA.slice(1));
+                            const priceB = parseInt(rawPriceB.slice(1));
+                            if (priceA > priceB) return -1;
+                            if (priceA < priceB) return 1;
+                            return 0;
+                        }
+                    }
+                ];
+
+                const activeFilter = sortingFilters.find(filter => filter.isActive);
+                if (activeFilter) {
+                    products.data = products.data.sort(activeFilter.sorter);
+                }
+
                 res.render('index', {
                     metadata: {
                         title: 'NAP Tech Test'
@@ -42,7 +75,8 @@ var routes = {
                     template: 'index',
                     products,
                     placeholderText,
-                    designersWithIds
+                    designersWithIds,
+                    sortingFilters
                 });
             });
         });
