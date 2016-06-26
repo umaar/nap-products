@@ -1,3 +1,41 @@
+
+function handleDesignerFilter() {
+
+	function readDesignerFilterData() {
+		const designersToFilter = new Set();
+
+		$('.product-list-designer-filter input').each((evt, elm) => {
+			const isChecked = $(elm).is(':checked');
+			const designer = $(elm).val();
+
+			if (isChecked) {
+				designersToFilter.add(designer);
+			} else {
+				designersToFilter.delete(designer);
+			}
+		});
+
+		if (designersToFilter.size) {
+			const filteredProducts = $('.product-list li').filter((index, elm) => {
+				const currentDesigner = $(elm).find('h4').text();
+				return designersToFilter.has(currentDesigner);
+			});
+
+			$('.product-list li').show();
+
+			$('.product-list li').not(filteredProducts).hide();
+			console.log(filteredProducts.length);
+		} else {
+			$('.product-list li').show();
+		}
+
+	}
+
+	$('.product-list-designer-filter input').change(evt => {
+		readDesignerFilterData();
+	});
+}
+
 function start() {
 	console.log('ready');
 
@@ -44,7 +82,7 @@ function start() {
 		}, false);
 	});
 
-	
+	handleDesignerFilter();
 }
 
 $(start);
