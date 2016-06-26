@@ -1,4 +1,28 @@
 
+function handleInfiniteScroll() {
+
+	window.onscroll = function(ev) {
+	    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+    		const productList = $('.product-list');
+	    	if (!$('.product-list-designer-filter input').is(':checked')) {
+	    		const limit = parseInt(productList.attr('data-limit'));
+	    		const offset = parseInt(productList.attr('data-offset'));
+	    		const newOffset = offset + limit;
+	    		const url = `http://127.0.0.1:3000/api/products?offset=${newOffset}&limit=${limit}`;
+
+	    		productList.attr('data-offset', newOffset);
+
+	    		$.getJSON(url, response => {
+	    			const template = Handlebars.templates['productItemList.hbs'];
+	    			const html = response.data.map(productItem => template(productItem)).join(' ');
+	    			productList.append(html);
+	    		});
+	    	} else {
+	    	}
+	    }
+	};
+}
+
 function handleDesignerFilter() {
 
 	function readDesignerFilterData() {
@@ -97,6 +121,8 @@ function start() {
 	});
 
 	handleDesignerFilter();
+
+	handleInfiniteScroll();
 }
 
 $(start);

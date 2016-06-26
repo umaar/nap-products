@@ -6,12 +6,6 @@
 
 <div class="container">
 
-{{!-- 
-{{products.offset}}
-{{products.limit}}
-{{products.total}}
- --}}
-
 <aside>
 	<h5>Sort by:</h5>
 	<ul class="product-list-sort">
@@ -32,7 +26,12 @@
 	</ul>
 </aside>
 
-<ul class="product-list">
+<ul
+	class="product-list"
+	data-offset="{{products.offset}}"
+	data-limit="{{products.limit}}"
+	data-total="{{products.total}}"
+>
 	{{#each products.data}}
 		{{> productItemList}}
 	{{/each}}
