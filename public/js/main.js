@@ -1,21 +1,40 @@
 (function() {
 	const productCache = new Map();
 
+	function getProductPrice(el) {
+		return parseInt(el.text().slice(1));
+	}
+
+	const sortingStrategies = {};
+	sortingStrategies['?sort=price&order=asc'] = (el1, el2) => {
+		const price1 = getProductPrice($(el1).find('h5'));
+		const price2 = getProductPrice($(el2).find('h5'));
+		if (price1 < price2) return -1;
+		if (price1 > price2) return 1;
+		return 0;
+	};
+
+	sortingStrategies['?sort=price&order=desc'] = (el1, el2) => {
+		const price1 = getProductPrice($(el1).find('h5'));
+		const price2 = getProductPrice($(el2).find('h5'));
+		if (price1 > price2) return -1;
+		if (price1 < price2) return 1;
+		return 0;
+	};
+
 	function sortProducts() {
 		const activeSort = $('.product-list-sort-active');
-		if (activeSort.length) {
-			const productList = $('.product-list');
-			const sortedProductList = productList.find('li').sort((el1, el2) => {
-				const price1 = parseInt($(el1).find('h5').text().slice(1));
-				const price2 = parseInt($(el2).find('h5').text().slice(1));
-				if (price1 < price2) return -1;
-				if (price1 > price2) return 1;
-				return 0;
-			});
-			productList.empty().append(sortedProductList);
-			window.scrollTo(0, document.body.scrollHeight - 5000);
-		}
+		if (!activeSort.length) return;
+
+		const sortingKey = activeSort.attr('data-url');
+		const productList = $('.product-list');
+		const sorter = sortingStrategies[sortingKey];
+		const sortedProductList = productList.find('li').sort(sorter);
+
+		productList.empty().append(sortedProductList);
 	}
+
+	window.sortProducts = sortProducts;
 
 	function onScrollToBottom() {
 		if ($('.product-list-designer-filter input').is(':checked')) {
@@ -30,7 +49,9 @@
 
 		productList.attr('data-offset', newOffset);
 
-		$.getJSON(url, response => {
+		$.getJSON(url).then(response => {
+			if (!response) return;
+
 			const template = Handlebars.templates['productItemList.hbs'];
 			const html = response.data.map(productItem => template(productItem)).join(' ');
 			productList.append(html);
@@ -101,16 +122,16 @@
 	function enableAutocomplete() {
 		const apiUrl = 'http://localhost:3000/api/all-product-names';
 
-		$.getJSON(apiUrl).then(({list}) => {
+		$.getJSON(apiUrl).then(response => {
 			var input = $('input.product-search');
 
 			const autocompleteConfig = {
 				minChars: 1,
 				maxItems: 40,
-				list,
+				list: response.data,
 			};
 
-			const autocomplete = new Awesomplete(input, autocompleteConfig);
+			const autocomplete = new Awesomplete(input[0], autocompleteConfig);
 
 			window.addEventListener("awesomplete-highlight", ({text}) =>
 				addIndividualProductToList(text.value), false);

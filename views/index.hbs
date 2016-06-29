@@ -11,7 +11,12 @@
 	<ul class="product-list-sort">
 		{{#each sortingFilters}}
 			<li>
-				<a {{#if isActive}}class="product-list-sort-active"{{/if}} href="/{{#unless isActive}}{{{url}}}{{/unless}}">{{text}}</a>
+				<a data-url="{{{url}}}"
+					{{#if isActive}}class="product-list-sort-active"{{/if}}
+					href="/{{#unless isActive}}{{{url}}}{{/unless}}
+				">
+					{{text}}
+				</a>
 			</li>
 		{{/each}}
 	</ul>
