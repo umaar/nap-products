@@ -1,6 +1,5 @@
-var config = require('../config/config')
 var request = require('request');
-const slug = require('slug')
+const getProductUrl = require('../utilities/getProductUrl');
 
 function randomBetween(min, max) {
     return Math.floor(Math.random() * (max-min+1) + min);
@@ -9,7 +8,7 @@ function randomBetween(min, max) {
 function processProducts(products) {
     const originalData = products.data;
     const data = originalData.map(product => {
-        const url = `/product/${product.id}-${slug(product.name)}`;
+        const url = getProductUrl(product);
         return Object.assign(product, {url});
     });
 

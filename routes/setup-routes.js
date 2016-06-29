@@ -1,9 +1,7 @@
-var config = require('../config/config');
+const config = require('../config/config');
 
 var configureRoutes = {
-
-    init: function(app) {
-
+    init(app) {
         /********* Products List API Routes ***********/
         var productListApiRoute = require(config.ROOT + '/routes/product-list');
         productListApiRoute.routes.init(app);
@@ -16,7 +14,6 @@ var configureRoutes = {
         var productNamesApiRoute = require(config.ROOT + '/routes/product-names');
         productNamesApiRoute.routes.init(app);
 
-
         /********* Landing Page Routes ***********/
         var landingPageRoute = require(config.ROOT + '/routes/landing-page');
         landingPageRoute.routes.init(app);
@@ -24,10 +21,7 @@ var configureRoutes = {
         /********* Product Page Routes ***********/
         var productPageRoute = require(config.ROOT + '/routes/product-page');
         productPageRoute.routes.init(app);
-
     }
 };
 
-module.exports = {
-    configureRoutes: configureRoutes
-};
+module.exports = { configureRoutes };

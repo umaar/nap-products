@@ -1,7 +1,53 @@
 {{!< default}}
 <div class="container">
 
-{{product}}
-{{product.name}}
+ <table class="table table-striped">
+   <thead>
+     <tr>
+       <th>{{product.name}}</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr>
+       <th scope="row">Images</th>
+       <td>
+       		<img src="{{product.images.outfit}}" alt="{{product.name}} outfit">
+       </td>
+       <td>
+       		<img src="{{product.images.large}}" alt="{{product.name}} large picture">
+       </td>
+     </tr>
+     <tr>
+       <th scope="row">Price</th>
+       <td>{{product.price}}</td>
+     </tr>
+     <tr>
+       <th scope="row">Designer</th>
+       <td>{{product.designer}}</td>
+     </tr>
+     <tr>
+       <th scope="row">On Sale</th>
+       <td>{{product.onSale}}</td>
+     </tr>
+     <tr>
+       <th scope="row">badges</th>
+       {{#each product.badges}}
+			<td>{{this}}</td>
+       {{/each}}
+     </tr>
+     <tr>
+       <th scope="row">Price</th>
+       <td>{{product.price}}</td>
+     </tr>
+     <tr>
+       <th scope="row">Designer</th>
+       <td>{{product.designer}}</td>
+     </tr>
+     <tr>
+       <th scope="row">URL</th>
+       <td><a href="{{product.url}}">{{product.url}}</a></td>
+     </tr>
+   </tbody>
+ </table>
 
 </div>
