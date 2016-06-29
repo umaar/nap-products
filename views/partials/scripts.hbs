@@ -1,4 +1,18 @@
+
 <script src="/js/jquery-3.0.0.min.js"></script>
+<script src="/js/ua-parser.min.js"></script>
+
+<script>
+(function() {
+	$(function() {
+		var browserName = $.ua.browser.name;
+		if (browserName !== 'Chrome') {
+			$('.unsupported-message').fadeIn();
+		}
+	});
+}());
+</script>
+
 <script src="/js/handlebars.runtime-v4.0.5.js"></script>
 <script src="/js/templates.js"></script>
 <script src="/js/awesomplete.min.js"></script>

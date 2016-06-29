@@ -1,6 +1,10 @@
-/*
- *  STYLE 4
- */
+.unsupported-message {
+	display: none;
+	padding: 10px;
+	text-align: center;
+	outline: 1px solid #d63f3f;
+	margin-bottom: 50px;
+}
 
 .product-list-designer-filter::-webkit-scrollbar-track
 {
