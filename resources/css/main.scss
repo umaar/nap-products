@@ -1,0 +1,78 @@
+
+@import 'vendor/reset';
+@import 'vendor/bootstrap';
+@import 'vendor/awesomplete';
+
+@import 'modules/product-list';
+@import 'modules/placeholder';
+
+body {
+	padding: 10px;
+	font-family: Verdana, Arial;
+}
+
+.container {
+	display: flex;
+
+	@media screen and (max-width: 750px) {
+		flex-direction: column;
+	}
+}
+
+aside {
+	position: fixed;
+	width: 30vw;
+	max-width: 220px;
+
+	h5 {
+		text-transform: uppercase;
+		text-align: center;
+	}
+
+	@media screen and (max-width: 750px) {
+		position: initial;
+		width: 100%;
+		max-width: none;
+	}
+}
+
+.main-header {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 10px;
+
+	@media screen and (max-width: 750px) {
+		justify-content: center;
+	}
+}
+
+.filter-message {
+	text-align: center;
+	padding: 10px;
+	margin: 0 auto;
+	height: 50px;
+	width: 100%;
+}
+
+.unsupported-message {
+	display: none;
+	padding: 10px;
+	text-align: center;
+	outline: 1px solid #d63f3f;
+	margin-bottom: 50px;
+}
+
+.product-search {
+	width: 300px;
+	border: 1px solid grey;
+	display: inline-block;
+	padding: 10px;
+	font-size: 18px;
+}
+
+.table img {
+	width: 200px;
+	max-width: 100%;
+}
+
+
