@@ -1,6 +1,6 @@
 import templates from './templates.js';
-import Awesomplete from './Awesomplete.min.js';
-import $ from './jquery-3.0.0.min.js';
+import Awesomplete from './vendor/Awesomplete.min.js';
+import $ from './vendor/jquery-3.0.0.min.js';
 
 const productCache = new Map();
 

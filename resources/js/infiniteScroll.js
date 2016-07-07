@@ -1,5 +1,5 @@
+import $ from './vendor/jquery-3.0.0.min.js';
 import templates from './templates.js';
-import $ from './jquery-3.0.0.min.js';
 import sortProducts from './sort.js';
 
 function onScrollToBottom() {

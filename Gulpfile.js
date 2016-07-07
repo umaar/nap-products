@@ -54,7 +54,12 @@ function watch() {
   return compile(true);
 };
 
-gulp.task('js', ['templates'], function() { return watch(); });
+gulp.task('handlebars-runtime', () => gulp
+  .src('node_modules/handlebars/dist/handlebars.runtime.min.js')
+  .pipe(gulp.dest('public/js')))
+
+
+gulp.task('js', ['handlebars-runtime', 'templates'], function() { return watch(); });
 
 gulp.task('sass', () => gulp
 	.src('resources/css/main.scss')

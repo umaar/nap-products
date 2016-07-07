@@ -1,4 +1,4 @@
-import $ from './jquery-3.0.0.min.js';
+import $ from './vendor/jquery-3.0.0.min.js';
 
 const sortingStrategies = {};
 
