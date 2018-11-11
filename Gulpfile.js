@@ -1,70 +1,74 @@
-var gulp = require('gulp');
-var rollup = require('rollup');
-var sass = require('gulp-sass');
-var concat = require('gulp-concat');
-var sourcemaps = require("gulp-sourcemaps");
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var browserify = require('browserify');
-var watchify = require('watchify');
-var babelify = require('babelify');
-var handlebars = require('gulp-handlebars');
-var wrap = require('gulp-wrap');
-var declare = require('gulp-declare');
+const gulp = require('gulp');
+const rollup = require('rollup');
+const sass = require('gulp-sass');
+const concat = require('gulp-concat');
+const sourcemaps = require('gulp-sourcemaps');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const browserify = require('browserify');
+const watchify = require('watchify');
+const babelify = require('babelify');
+const handlebars = require('gulp-handlebars');
+const wrap = require('gulp-wrap');
+const declare = require('gulp-declare');
 
-gulp.task('templates', function(){
-  gulp.src('views/partials/*.hbs')
-    .pipe(handlebars({
-    	handlebars: require('handlebars')
-    }))
-    .pipe(wrap('Handlebars.template(<%= contents %>)'))
-    .pipe(declare({
-      root: 'module.exports',
-      noRedeclare: true
-    }))
-    .pipe(concat('templates.js'))
-    .pipe(gulp.dest('resources/js/'));
+gulp.task('templates', () => {
+	gulp.src('views/partials/*.hbs')
+		.pipe(handlebars({
+			handlebars: require('handlebars')
+		}))
+		.pipe(wrap('Handlebars.template(<%= contents %>)'))
+		.pipe(declare({
+			root: 'module.exports',
+			noRedeclare: true
+		}))
+		.pipe(concat('templates.js'))
+		.pipe(gulp.dest('resources/js/'));
 });
 
 function compile(watch) {
-  var bundler = watchify(browserify('resources/js/main.js', { debug: true })
-	  .transform(babelify, { presets: ['es2015'] }));
+	const bundler = watchify(browserify('resources/js/main.js', {
+		debug: true})
+		.transform(babelify, {presets: ['@babel/preset-env']}));
 
-  function rebundle() {
-    bundler.bundle()
-      .on('error', function(err) { console.error(err); this.emit('end'); })
-      .pipe(source('main.js'))
-      .pipe(buffer())
-      .pipe(sourcemaps.init({ loadMaps: true }))
-      .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest('public/js'));
-  }
+	function rebundle() {
+		bundler.bundle()
+			.on('error', function (err) {
+				console.error(`There was an error ${err.message}`);
+				this.emit('end');
+			})
+			.pipe(source('main.js'))
+			.pipe(buffer())
+			.pipe(sourcemaps.init({loadMaps: true}))
+			.pipe(sourcemaps.write('./'))
+			.pipe(gulp.dest('public/js'));
+	}
 
-  if (watch) {
-    bundler.on('update', function() {
-      console.log('-> bundling...');
-      rebundle();
-    });
-  }
+	if (watch) {
+		bundler.on('update', () => {
+			console.log('-> bundling...');
+			rebundle();
+		});
+	}
 
-  rebundle();
+	rebundle();
 }
 
 function watch() {
-  return compile(true);
-};
+	return compile(true);
+}
 
 gulp.task('handlebars-runtime', () => gulp
-  .src('node_modules/handlebars/dist/handlebars.runtime.min.js')
-  .pipe(gulp.dest('public/js')))
+	.src('node_modules/handlebars/dist/handlebars.runtime.min.js')
+	.pipe(gulp.dest('public/js')));
 
-
-gulp.task('js', ['handlebars-runtime', 'templates'], function() { return watch(); });
+gulp.task('js', ['handlebars-runtime', 'templates'], () => {
+	return watch();
+});
 
 gulp.task('sass', () => gulp
 	.src('resources/css/main.scss')
 	.pipe(sass())
 	.pipe(gulp.dest('public/css')));
 
-
-gulp.task('default', ['sass', 'js'])
+gulp.task('default', ['sass', 'js']);

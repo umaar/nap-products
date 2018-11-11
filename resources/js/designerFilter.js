@@ -3,7 +3,7 @@ import templates from './templates.js';
 
 function readDesignerFilterData() {
 	const designersToFilter = new Set();
-	const productListLi = $('.product-list li')
+	const productListLi = $('.product-list li');
 
 	$('.product-list-designer-filter input').each((evt, elm) => {
 		const isChecked = $(elm).is(':checked');
@@ -33,7 +33,7 @@ function readDesignerFilterData() {
 	$('.filter-message').remove();
 
 	if (filteredProducts && filteredProducts.length) {
-		const template = templates['filterMessage'];
+		const template = templates.filterMessage;
 		const html = template({
 			activeFilter: designersToFilter.size > 0,
 			resultCount: filteredProducts.length,

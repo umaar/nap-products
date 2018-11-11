@@ -16,9 +16,11 @@ function onScrollToBottom() {
 	productList.attr('data-offset', newOffset);
 
 	$.getJSON(url).then(response => {
-		if (!response) return;
+		if (!response) {
+			return;
+		}
 
-		const template = templates['productItemList'];
+		const template = templates.productItemList;
 		const html = response.data.map(productItem => template(productItem)).join(' ');
 		productList.append(html);
 		sortProducts();
@@ -27,12 +29,12 @@ function onScrollToBottom() {
 
 function handleInfiniteScroll() {
 	$(window).scroll(() => {
-			let innerHeight = window.innerHeight;
-			let scrollHeight = document.body.scrollHeight;
-			let scrollY = window.scrollY;
+		const innerHeight = window.innerHeight;
+		const scrollHeight = document.body.scrollHeight;
+		const scrollY = window.scrollY;
 
 		    if ((innerHeight + scrollY) >= scrollHeight) {
-		    	onScrollToBottom()
+		    	onScrollToBottom();
 		    }
 	});
 }
