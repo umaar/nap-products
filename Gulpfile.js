@@ -1,5 +1,4 @@
 const gulp = require('gulp');
-const rollup = require('rollup');
 const sass = require('gulp-sass');
 const concat = require('gulp-concat');
 const sourcemaps = require('gulp-sourcemaps');
@@ -13,7 +12,7 @@ const wrap = require('gulp-wrap');
 const declare = require('gulp-declare');
 
 gulp.task('templates', () => {
-	gulp.src('views/partials/*.hbs')
+	return gulp.src('views/partials/*.hbs')
 		.pipe(handlebars({
 			handlebars: require('handlebars')
 		}))
@@ -58,17 +57,22 @@ function watch() {
 	return compile(true);
 }
 
-gulp.task('handlebars-runtime', () => gulp
-	.src('node_modules/handlebars/dist/handlebars.runtime.min.js')
-	.pipe(gulp.dest('public/js')));
+gulp.task('handlebars-runtime', () => {
+	return gulp
+		.src('node_modules/handlebars/dist/handlebars.runtime.min.js')
+		.pipe(gulp.dest('public/js'));	
+})
 
-gulp.task('js', ['handlebars-runtime', 'templates'], () => {
+
+gulp.task('js', gulp.series(['handlebars-runtime', 'templates'], () => {
 	return watch();
-});
+}));
 
-gulp.task('sass', () => gulp
-	.src('resources/css/main.scss')
-	.pipe(sass())
-	.pipe(gulp.dest('public/css')));
+gulp.task('sass', () => {
+	return gulp
+		.src('resources/css/main.scss')
+		.pipe(sass())
+		.pipe(gulp.dest('public/css'));
+})
 
-gulp.task('default', ['sass', 'js']);
+gulp.task('default', gulp.series(['sass', 'js']));
